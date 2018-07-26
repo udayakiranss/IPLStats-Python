@@ -1,6 +1,7 @@
 import pandas as pd
 import os as os
-
+import numpy as np
+from com.iplstats.data.IPLData import Match
 # colNames = ['id', 'season', 'city', 'date', 'team1', 'team2', 'toss_winner', 'toss_decision', 'result', 'dl_applied',
 #             'winner',
 #             'win_by_runs', 'win_by_wickets', 'player_of_match', 'venue', 'umpire1', 'umpire2', 'umpire3']
@@ -13,7 +14,7 @@ deliveries = pd.read_csv('./resources/deliveries_season.csv', sep=',', encoding=
 print("Loading matches")
 
 def getWinner(seasonGroupBy, season):
-    return seasonGroupBy.get_group(season).tail(1).iloc[0, 10]
+    return seasonGroupBy.get_group(season).tail(1).iloc[0, 1:15]
 
 
 def getWinnerCount(seasongGroupBy, team):
@@ -48,7 +49,30 @@ def getMatchesInASeason(batsman, season):
 def getMatches(batsman):
     return deliveries.groupby('batsman').get_group(batsman)['match_id'].unique().size
 
+def getAbandonedMatches():
+    AbandonedMatches = matches[matches.loc[:, 'winner'].isnull()].loc[:,['id','team1','team2','venue','date']]
+    matchList = []
+    for index, row in AbandonedMatches.iterrows():
+        match = Match(row['id'],row['date'],row['venue'],row['team1'],row['team2'])
+        matchList.append(match.toJSON())
 
+    return matchList
+
+
+def orangecap(season):
+    player = deliveriesSeasonGroup.get_group(season).groupby('batsman').\
+        agg(np.sum).sort_values(by='batsman_runs').tail(1)['batsman_runs'].index[0]
+    playerRuns = deliveriesSeasonGroup.get_group(season).groupby('batsman').\
+        agg(np.sum).sort_values(by='batsman_runs').tail(1)['batsman_runs'].iloc[0]
+    return  player, playerRuns
+
+
+def purplecap(season):
+    player = deliveriesSeasonGroup.get_group(season).groupby('bowler')['dismissal_kind']\
+        .count().sort_values().tail(1).index[0]
+    player_wickets = deliveriesSeasonGroup.get_group(season).groupby('bowler')['dismissal_kind']\
+        .count().sort_values().tail(1).iloc[0]
+    return  player, player_wickets
 
 
 # Group the matches by season
