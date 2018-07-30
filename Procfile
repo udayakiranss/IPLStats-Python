@@ -1,1 +1,1 @@
-web: gunicorn IPLAPI
+web: gunicorn app:IPLAPI
