@@ -12,6 +12,10 @@ USER_DATA = {
     "admin": "Uday"
 }
 
+@app.route('/>')
+def welcome_message():
+    return " Exposing IPL Stats API's using Python"
+
 
 @auth.verify_password
 def verify(username, password):
