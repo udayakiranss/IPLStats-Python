@@ -4,10 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask='1.0.2'
-pandas = '0.20.3'
-numpy = '1.13.1'
-flask-httpauth = '3.2.4'
+flask = '*'
+pandas = '*'
+numpy = '*'
+flask-httpauth = '*'
 
 [dev-packages]
 
