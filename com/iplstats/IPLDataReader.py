@@ -5,7 +5,7 @@ from com.iplstats.data.IPLData import Match
 # colNames = ['id', 'season', 'city', 'date', 'team1', 'team2', 'toss_winner', 'toss_decision', 'result', 'dl_applied',
 #             'winner',
 #             'win_by_runs', 'win_by_wickets', 'player_of_match', 'venue', 'umpire1', 'umpire2', 'umpire3']
-matchesCSVPath = os.path.abspath('./resources/matches_chasing.csv')
+matchesCSVPath = os.path.abspath('./resources/matches_chasing1.csv')
 print(matchesCSVPath)
 matches = pd.read_csv(matchesCSVPath, sep=',', encoding='UTF-8')
 
