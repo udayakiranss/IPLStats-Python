@@ -12,7 +12,7 @@ USER_DATA = {
     "admin": "Uday"
 }
 
-@app.route('/>')
+@app.route('/')
 def welcome_message():
     return " Exposing IPL Stats API's using Python"
 
