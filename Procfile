@@ -1,2 +1,2 @@
 heroku ps:scale worker=1
-worker: python IPLAPI.py
+web: python IPLAPI.py
