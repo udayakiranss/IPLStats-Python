@@ -1,1 +1,1 @@
-web: gunicorn app:IPLAPI --log-level error
+web: gunicorn IPLAPI:app --log-level error
